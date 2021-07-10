@@ -28,11 +28,6 @@ class ApplicationStatusHelper {
       case "UNSUCCESSFUL"  : return ApplicationStatus.UNSUCCESSFUL;
     }
 
-    /*for (ApplicationStatus element in ApplicationStatus.values) {
-      if (element.toString() == statusAsString) {
-        return element;
-      }
-    }*/
     return ApplicationStatus.ERROR;
   }
 }

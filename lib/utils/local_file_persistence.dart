@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -5,7 +6,8 @@ import 'package:path_provider/path_provider.dart';
 
 class LocalFilePersistence {
 
-  static const FILE_NAME= "job_applications";
+  static const FILE_MAIN_DIRECTORY= "job_applications";
+  static const FILE_POSTFIX= ".txt";
 
   static final LocalFilePersistence _instance = LocalFilePersistence._internal();
 
@@ -25,14 +27,12 @@ class LocalFilePersistence {
     return File('$path/$filename');
   }
 
-  Future<String> getFilename(/*String userId, String type, String key*/) async {
-    //return userId + '/' + type + '/' + key;
-    return FILE_NAME;
+  Future<String> getFilename(String finalFileName) async {
+    return FILE_MAIN_DIRECTORY + '/' + finalFileName + FILE_POSTFIX;
   }
 
-  void saveObject(Map<String, dynamic> object) async {
-    //final filename = await getFilename(userId, 'objects', key);
-    final String filename = await getFilename();
+  void saveObject(Map<String, dynamic> object, String finalFileName) async {
+    final String filename = await getFilename(finalFileName);
     final File file = await _localFile(filename);
 
     if (!await file.parent.exists()) await file.parent.create(recursive: true);
@@ -41,14 +41,26 @@ class LocalFilePersistence {
     await file.writeAsString(jsonString);
   }
 
-  void saveString(String value) async {
-    //final filename = await getFilename(userId, 'objects', key);
-    final String filename = await getFilename();
+  void saveString(String value, String filenamePostfix) async {
+    final String filename = await getFilename(filenamePostfix);
     final File file = await _localFile(filename);
 
     if (!await file.parent.exists()) await file.parent.create(recursive: true);
 
     await file.writeAsString(value);
+  }
+
+  Future<Map<String, dynamic>> getObject(String filenamePostfix) async {
+    final String filename = await getFilename(filenamePostfix);
+    final file = await _localFile(filename);
+
+    if (await file.exists()) {
+      final objectString = await file.readAsString();
+      return JsonDecoder().convert(objectString);
+    }
+
+    Map<String,dynamic> empty = new HashMap();
+    return empty;
   }
 
 }

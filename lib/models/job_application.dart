@@ -19,8 +19,8 @@ class JobApplication{
     : jobTitle = json['jobTitle'],
     companyName = json['companyName'],
     teamName = json['teamName'],
-    applicationDate = json['applicationDate'],
-    applicationDeadline = json['applicationDeadline'],
+    applicationDate = DateTime.parse(json['applicationDate']),
+    applicationDeadline = DateTime.parse(json['applicationDeadline']),
     jobDescription = json['jobDescription'],
     applicationStatus = ApplicationStatusHelper.getStatusFromString(json['applicationStatus']);
 
@@ -28,8 +28,8 @@ class JobApplication{
       'jobTitle': jobTitle,
       'companyName': companyName,
       'teamName': teamName,
-      'applicationDate': applicationDate,
-      'applicationDeadline': applicationDeadline,
+      'applicationDate': applicationDate.toIso8601String(),
+      'applicationDeadline': applicationDeadline.toIso8601String(),
       'jobDescription': jobDescription,
       'applicationStatus': ApplicationStatusHelper.getValue(applicationStatus),
     };
