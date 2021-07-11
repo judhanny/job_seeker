@@ -16,6 +16,7 @@ void main(){
     expect(application.applicationDeadline, JobApplicationCreator.DEADLINE);
     expect(application.jobDescription, JobApplicationCreator.DESCRIPTION);
     expect(application.applicationStatus, ApplicationStatus.IN_PROGRESS);
+    expect(application.applicationContacts, JobApplicationCreator.CONTACTS);
   });
 
   test('test basic construction of job application from & to json', (){
@@ -30,5 +31,6 @@ void main(){
     expect(application.applicationDeadline, appFromJson.applicationDeadline);
     expect(application.jobDescription, appFromJson.jobDescription);
     expect(application.applicationStatus, appFromJson.applicationStatus);
+    expect(application.applicationContacts, appFromJson.applicationContacts);
   });
 }
