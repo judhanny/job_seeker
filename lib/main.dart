@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:job_seeker/widgets/random_words.dart';
+import 'package:job_seeker/widgets/company_applications_widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
         title: 'Startup Name Generator',
-        home: RandomWords(),
+        home: CompanyApplications(),
     );
   }
 }
