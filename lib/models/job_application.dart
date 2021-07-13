@@ -17,6 +17,12 @@ class JobApplication{
     applicationStatus = ApplicationStatus.IN_PROGRESS;
   }
 
+  JobApplication.blankApplication(){
+    this.applicationDate = DateTime.now();
+    this.applicationDeadline = DateTime.now();
+    this.applicationStatus = ApplicationStatus.IN_PROGRESS;
+  }
+
   JobApplication.fromJson(Map<String, dynamic> json)
     : jobTitle = json['jobTitle'],
     companyName = json['companyName'],
@@ -55,4 +61,9 @@ class JobApplication{
           .toList();
       return contacts;
     }
+
+  @override
+  String toString() {
+    return 'JobApplication{jobTitle: $jobTitle, companyName: $companyName, teamName: $teamName, applicationDate: $applicationDate, applicationDeadline: $applicationDeadline, jobDescription: $jobDescription, applicationStatus: $applicationStatus, applicationContacts: $applicationContacts}';
+  }
 }
