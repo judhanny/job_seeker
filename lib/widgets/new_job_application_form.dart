@@ -102,22 +102,45 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
               onChanged: (value) { _jobApplication.jobDescription = value; },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  //print(_jobApplication);
-                  // If the form is valid, display a snack bar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
-                }
-              },
-              child: Text('Save'),
-            ),
-          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget> [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          // If the form is valid, display a snack bar. In the real world,
+                          // you'd often call a server or save the information in a database.
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(
+                              'Processing Data $_jobApplication')));
+                          Navigator.of(context).pop(true);
+                        }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                    ),
+                    child: Text("Save",),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _jobApplication = JobApplication.blankApplication();
+                      Navigator.of(context).pop(true);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    child: Text("Cancel"),
+                  ),
+                )
+              ],
+            )
+          )
         ],
       ),
     );
