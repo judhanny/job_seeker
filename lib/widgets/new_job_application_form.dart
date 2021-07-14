@@ -1,9 +1,13 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:job_seeker/models/application_status.dart';
 import 'package:job_seeker/models/job_application.dart';
 
 
 class NewJobApplicationForm extends StatefulWidget {
+  final JobApplication jobApplication;
+
+  NewJobApplicationForm(this.jobApplication);
 
   @override
   NewJobApplicationFormState createState() {
@@ -15,7 +19,7 @@ class NewJobApplicationForm extends StatefulWidget {
 // This class holds data related to the form.
 class NewJobApplicationFormState extends State<NewJobApplicationForm> {
 
-  JobApplication _jobApplication = JobApplication.blankApplication();
+  //JobApplication _jobApplication = JobApplication.blankApplication();
 
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
@@ -30,8 +34,8 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-    _applicationDateTextController.text = _dateFormatter.format(_jobApplication.applicationDate);
-    _applicationDeadlineTextController.text = _dateFormatter.format(_jobApplication.applicationDeadline);
+    _applicationDateTextController.text = _dateFormatter.format(widget.jobApplication.applicationDate);
+    _applicationDeadlineTextController.text = _dateFormatter.format(widget.jobApplication.applicationDeadline);
 
     return Form(
       key: _formKey,
@@ -46,7 +50,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter a company name';
               }
-              _jobApplication.companyName = value;
+              widget.jobApplication.companyName = value;
               return null;
             }
           ),
@@ -59,7 +63,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter a job title';
               }
-              _jobApplication.jobTitle = value;
+              widget.jobApplication.jobTitle = value;
               return null;
             },
           ),
@@ -67,13 +71,13 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
             decoration: InputDecoration(
                 labelText: "Team Name"
             ),
-            onChanged: (value) { _jobApplication.teamName = value; },
+            onChanged: (value) { widget.jobApplication.teamName = value; },
           ),
           TextFormField(
             decoration: InputDecoration(
                 labelText: "Location"
             ),
-            onChanged: (value) { _jobApplication.location = value; },
+            onChanged: (value) { widget.jobApplication.location = value; },
           ),
           TextFormField(
               controller: _applicationDateTextController,
@@ -88,8 +92,8 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
                   labelText: "Application Deadline"
               ),
               validator: (value) {
-                if (value != null && _jobApplication.applicationDate != null
-                    && _jobApplication.applicationDeadline.isBefore(_jobApplication.applicationDate)) {
+                if (value != null && widget.jobApplication.applicationDate != null
+                    && widget.jobApplication.applicationDeadline.isBefore(widget.jobApplication.applicationDate)) {
                   return 'Deadline cannot precede application date';
                 }
                 return null;
@@ -105,7 +109,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
               keyboardType: TextInputType.multiline,
               minLines: 1,
               maxLines: 5,
-              onChanged: (value) { _jobApplication.jobDescription = value; },
+              onChanged: (value) { widget.jobApplication.jobDescription = value; },
             ),
           ),
           Container(
@@ -119,9 +123,13 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
                         if (_formKey.currentState!.validate()) {
                           // If the form is valid, display a snack bar. In the real world,
                           // you'd often call a server or save the information in a database.
+                          //print(widget.jobApplication);
+                          String company = widget.jobApplication.companyName;
+                          String title = widget.jobApplication.jobTitle;
+
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text(
-                              'Processing Data $_jobApplication')));
+                              'Processing New Application for $company - $title')));
                           Navigator.of(context).pop(true);
                         }
                     },
@@ -135,7 +143,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      _jobApplication = JobApplication.blankApplication();
+                      widget.jobApplication.applicationStatus = ApplicationStatus.DELETE;
                       Navigator.of(context).pop(true);
                     },
                     style: ButtonStyle(
@@ -158,11 +166,11 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
 
       String presentationDate = _dateFormatter.format(newSelectedDate);
       if(isApplicationDate) {
-        _jobApplication.applicationDate = newSelectedDate;
+        widget.jobApplication.applicationDate = newSelectedDate;
         _applicationDateTextController.text = presentationDate;
       }
       else{
-        _jobApplication.applicationDeadline = newSelectedDate;
+        widget.jobApplication.applicationDeadline = newSelectedDate;
         _applicationDeadlineTextController.text = presentationDate;
       }
     }

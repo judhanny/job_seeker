@@ -5,7 +5,8 @@ enum ApplicationStatus{
   ABANDONED,
   SUCCESSFUL,
   UNSUCCESSFUL,
-  ERROR
+  ERROR,
+  DELETE
 }
 
 class ApplicationStatusHelper {
@@ -17,6 +18,7 @@ class ApplicationStatusHelper {
       case ApplicationStatus.SUCCESSFUL : return "SUCCESSFUL";
       case ApplicationStatus.UNSUCCESSFUL : return "UNSUCCESSFUL";
       case ApplicationStatus.ERROR : return "ERROR";
+      case ApplicationStatus.DELETE : return "DELETE";
     }
   }
 
@@ -26,6 +28,7 @@ class ApplicationStatusHelper {
       case "ABANDONED" : return  ApplicationStatus.ABANDONED;
       case "SUCCESSFUL": return ApplicationStatus.SUCCESSFUL;
       case "UNSUCCESSFUL"  : return ApplicationStatus.UNSUCCESSFUL;
+      case "DELETE"  : return ApplicationStatus.DELETE;
     }
 
     return ApplicationStatus.ERROR;
