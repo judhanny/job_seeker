@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
+import 'package:job_seeker/widgets/job_application_page.dart';
 
 import 'colour_generator.dart';
 
@@ -35,7 +36,7 @@ class _JobApplicationsPerCompanyState extends State<JobApplicationsPerCompany> {
   }
 
   Widget _individualApplication(JobApplication application){
-    String key = application.jobTitle +" " + application.teamName + " " + application.location;
+    String key = application.summaryDetails();
     return  Center(
         child: Container(
           width: 170,
@@ -50,11 +51,10 @@ class _JobApplicationsPerCompanyState extends State<JobApplicationsPerCompany> {
               splashColor: Colors.blue.withAlpha(30),
               child: _jobApplicationSummaryDisplay(application),
               onTap: (){
-                print("PRESSED: Individual application " + key);
-                /*Navigator.push(
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => JobApplicationsPerCompany(company)),
-                );*/
+                  MaterialPageRoute(builder: (context) => JobApplicationPage(application)),
+                );
               },
             ),
           ),

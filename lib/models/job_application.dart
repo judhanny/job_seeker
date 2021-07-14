@@ -65,6 +65,14 @@ class JobApplication{
       return contacts;
     }
 
+    bool isValid(){
+      return ( this.applicationStatus != ApplicationStatus.ERROR && this.applicationStatus != ApplicationStatus.DELETE);
+    }
+
+  String summaryDetails(){
+      return '$companyName - $jobTitle - $location';
+  }
+
   @override
   String toString() {
     return 'JobApplication{jobTitle: $jobTitle, companyName: $companyName, teamName: $teamName, applicationDate: $applicationDate, '

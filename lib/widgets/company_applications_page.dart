@@ -40,20 +40,21 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
         tooltip: 'Add New Job Application', // used by assistive technologies
         child: Icon(Icons.add),
         onPressed: (){
-            JobApplication application = JobApplication.blankApplication();
-            _showNewApplicationFormDialog(application).then((value) {
-
-              if(application.applicationStatus != ApplicationStatus.ERROR && application.applicationStatus != ApplicationStatus.DELETE){
-                setState(() {
-                  widget.companies.addJobApplication(application);
+            JobApplication jobApplication = JobApplication.blankApplication();
+            _showNewApplicationFormDialog(jobApplication).then((value) {
+              if( jobApplication.isValid()){
+                  setState(() {
+                  widget.companies.addJobApplication(jobApplication);
                 });
               }
               else{
-                String company = application.companyName;
-                String title = application.jobTitle;
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(
-                    'Error adding new job application for  $company - $title')));
+                if( jobApplication.applicationStatus == ApplicationStatus.ERROR) {
+                  String company = jobApplication.companyName;
+                  String title = jobApplication.jobTitle;
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(
+                      'Error adding new job application for  $company - $title')));
+                }
               }
             });
           },

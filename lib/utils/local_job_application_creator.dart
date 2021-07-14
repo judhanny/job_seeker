@@ -13,7 +13,7 @@ class LocalJobApplicationCreator {
   static DateTime appDate = DateTime.now();
   static DateTime deadline = new DateTime(
       appDate.year, appDate.month + 1, appDate.day);
-  static String description = "Job description";
+  static String description = "This is a job description for the role at this company.";
 
   static String getLocation(int numberOfJobs){
     String location = "London";
