@@ -14,16 +14,17 @@ class JobApplicationCreator {
   static String applicationJobDescription = "Job description blah blah";
   static List<Contact> applicationContacts = [new Contact("John", "Smith", "BoomCo", "Hiring Manager", "Not a nice man"),
     Contact("June", "Smith", "BoomCo", "HR Rep", "Hard to get hold of")];
+  static String location = "London";
 
   static JobApplication getApplication() {
     return new JobApplication(
         applicationTitle, applicationCompanyName, applicationTeamName, applicationApplicationDate, applicationDeadline,
-        applicationJobDescription, applicationContacts);
+        applicationJobDescription, applicationContacts, location);
   }
 
   static JobApplication getApplicationWithCustomisation(int jobTitlePostfixNum, int companyPostfixNum) {
     return new JobApplication(
         applicationTitle + ' $jobTitlePostfixNum', applicationCompanyName+ ' $companyPostfixNum', applicationTeamName,
-        applicationApplicationDate, applicationDeadline, applicationJobDescription, applicationContacts);
+        applicationApplicationDate, applicationDeadline, applicationJobDescription, applicationContacts, location);
   }
 }

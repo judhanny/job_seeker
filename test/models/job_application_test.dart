@@ -18,6 +18,7 @@ void main(){
     expect(application.jobDescription, JobApplicationCreator.applicationJobDescription);
     expect(application.applicationStatus, ApplicationStatus.IN_PROGRESS);
     expect(application.applicationContacts, JobApplicationCreator.applicationContacts);
+    expect(application.location, JobApplicationCreator.location);
   });
 
   test('test basic construction of job application from & to json', (){
@@ -33,6 +34,7 @@ void main(){
     expect(application.jobDescription, appFromJson.jobDescription);
     expect(application.applicationStatus, appFromJson.applicationStatus);
     expect(application.applicationContacts, appFromJson.applicationContacts);
+    expect(application.location, JobApplicationCreator.location);
   });
 
   test('test basic construction of blank application', (){
@@ -49,5 +51,6 @@ void main(){
     expect(application.jobDescription, "");
     expect(application.applicationStatus, ApplicationStatus.IN_PROGRESS);
     expect(application.applicationContacts, []);
+    expect(application.location, "");
   });
 }

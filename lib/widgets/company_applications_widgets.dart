@@ -48,7 +48,7 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
       ),
       body: _buildCompanyApplicationList(),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Add New Application', // used by assistive technologies
+        tooltip: 'Add New Job Application', // used by assistive technologies
         child: Icon(Icons.add),
         onPressed: ()=> _showNewApplicationFormDialog(),
       ),
@@ -148,7 +148,17 @@ class LocalJobApplicationCreator {
     Contact("June", "Smith", "BoomCo", "HR Rep", "Hard to get hold of")];
 
   static JobApplication getApplication(int jobTitlePostfixNum, int companyPostfixNum) {
+    String location = "London";
+    int remainder = jobTitlePostfixNum % 7;
+    switch(remainder){
+      case 1: location = "Paris"; break;
+      case 2: location = "Los Angeles"; break;
+      case 3: location = "Hong Kong"; break;
+      case 4: location = "Cape Town"; break;
+      case 5: location = "Mumbai"; break;
+      case 6: location = "Barcelona"; break;
+    }
     return new JobApplication(
-        title + ' $jobTitlePostfixNum', companyName+ ' $companyPostfixNum', teamName, appDate, deadline, description, contacts);
+        title + ' $jobTitlePostfixNum', companyName+ ' $companyPostfixNum', teamName, appDate, deadline, description, contacts, location);
   }
 }

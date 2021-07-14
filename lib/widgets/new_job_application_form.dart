@@ -70,6 +70,12 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
             onChanged: (value) { _jobApplication.teamName = value; },
           ),
           TextFormField(
+            decoration: InputDecoration(
+                labelText: "Location"
+            ),
+            onChanged: (value) { _jobApplication.location = value; },
+          ),
+          TextFormField(
               controller: _applicationDateTextController,
               decoration: InputDecoration(
                   labelText: "Application Date"
@@ -122,7 +128,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
-                    child: Text("Save",),
+                    child: Text("Save"),
                   ),
                 ),
                 SizedBox(width: 10),

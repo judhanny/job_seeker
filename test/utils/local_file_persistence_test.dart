@@ -35,5 +35,6 @@ void main() {
     expect(application.jobDescription, appFromFile.jobDescription);
     expect(application.applicationStatus, appFromFile.applicationStatus);
     expect(application.applicationContacts, appFromFile.applicationContacts);
+    expect(application.location, appFromFile.location);
   });
 }

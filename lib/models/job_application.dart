@@ -11,9 +11,10 @@ class JobApplication{
   String jobDescription ="";
   late ApplicationStatus applicationStatus;
   List<Contact> applicationContacts = List.empty();
+  String location="";
 
   JobApplication(this.jobTitle, this.companyName, this.teamName,
-      this.applicationDate, this.applicationDeadline, this.jobDescription, this.applicationContacts){
+      this.applicationDate, this.applicationDeadline, this.jobDescription, this.applicationContacts, this.location){
     applicationStatus = ApplicationStatus.IN_PROGRESS;
   }
 
@@ -27,6 +28,7 @@ class JobApplication{
     : jobTitle = json['jobTitle'],
     companyName = json['companyName'],
     teamName = json['teamName'],
+    location = json['location'],
     applicationDate = DateTime.parse(json['applicationDate']),
     applicationDeadline = DateTime.parse(json['applicationDeadline']),
     jobDescription = json['jobDescription'],
@@ -37,6 +39,7 @@ class JobApplication{
       'jobTitle': jobTitle,
       'companyName': companyName,
       'teamName': teamName,
+      'location': location,
       'applicationDate': applicationDate.toIso8601String(),
       'applicationDeadline': applicationDeadline.toIso8601String(),
       'jobDescription': jobDescription,
@@ -64,6 +67,8 @@ class JobApplication{
 
   @override
   String toString() {
-    return 'JobApplication{jobTitle: $jobTitle, companyName: $companyName, teamName: $teamName, applicationDate: $applicationDate, applicationDeadline: $applicationDeadline, jobDescription: $jobDescription, applicationStatus: $applicationStatus, applicationContacts: $applicationContacts}';
+    return 'JobApplication{jobTitle: $jobTitle, companyName: $companyName, teamName: $teamName, applicationDate: $applicationDate, '
+        'applicationDeadline: $applicationDeadline, jobDescription: $jobDescription, applicationStatus: $applicationStatus, '
+        'applicationContacts: $applicationContacts, location: $location}';
   }
 }
