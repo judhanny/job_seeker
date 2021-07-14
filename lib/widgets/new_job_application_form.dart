@@ -19,8 +19,6 @@ class NewJobApplicationForm extends StatefulWidget {
 // This class holds data related to the form.
 class NewJobApplicationFormState extends State<NewJobApplicationForm> {
 
-  //JobApplication _jobApplication = JobApplication.blankApplication();
-
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //

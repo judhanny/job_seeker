@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     ApplicationsByCompany companies = LocalJobApplicationCreator.createApplicationsByCompany(3, 4);
 
     return MaterialApp(
-        title: 'Startup Name Generator',
+        title: 'Job Application Organiser',
         home: CompanyApplications(companies: companies),
     );
   }

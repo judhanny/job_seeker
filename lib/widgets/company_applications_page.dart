@@ -6,6 +6,7 @@ import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
 
 import 'colour_generator.dart';
+import 'job_applications_per_company_page.dart';
 import 'new_job_application_form.dart';
 
 class CompanyApplications extends StatefulWidget {
@@ -60,8 +61,6 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
     );
   }
 
-
-
   Widget _buildCompanyApplicationList(){
     return GridView.count(
         crossAxisCount: 2,
@@ -84,25 +83,46 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
     int numJobs  = company.getNumberOfApplications();
     return  Center(
         child: Container(
-            padding: const EdgeInsets.all(16),
-            color: ColourGenerator().getPastelColourForKey(companyName),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.account_balance_outlined,
-                  size: 25,
-                  color: Colors.black,
-                ),
-                Text( '$companyName',
-                    style: TextStyle(fontSize: 18, color: Colors.black),
-                    textAlign: TextAlign.center),
-                Text( '\n$numJobs Applications',
-                    style: TextStyle(fontSize: 12, color: Colors.black),
-                    textAlign: TextAlign.center)
-              ],
-            )
+          width: 170,
+          height: 170,
+            child: Card(
+              color: ColourGenerator().getPastelColourForKey(companyName),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 10,
+              child: new InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                child: _companySummaryDisplay(companyName, numJobs),
+                onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JobApplicationsPerCompany(company)),
+                    );
+                  },
+              ),
+            ),
         )
+    );
+  }
+
+  Widget _companySummaryDisplay(String companyName, int numJobs){
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 45),
+        Icon(
+          Icons.account_balance_outlined,
+          size: 25,
+          color: Colors.black,
+        ),
+        Text( '$companyName',
+            style: TextStyle(fontSize: 18, color: Colors.black),
+            textAlign: TextAlign.center),
+        Text( '\n$numJobs Applications',
+            style: TextStyle(fontSize: 12, color: Colors.black),
+            textAlign: TextAlign.center)
+      ],
     );
   }
 
