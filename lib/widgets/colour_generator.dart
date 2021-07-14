@@ -16,4 +16,9 @@ class ColourGenerator{
     return CustomColours.PASTELS[random.nextInt(CustomColours.PASTELS.length)];
   }
 
+  Color getPastelColourForKey(String key){
+    int value = key.hashCode % CustomColours.PASTELS.length;
+    return CustomColours.PASTELS[value];
+  }
+
 }

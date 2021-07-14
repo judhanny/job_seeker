@@ -85,7 +85,7 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
     return  Center(
         child: Container(
             padding: const EdgeInsets.all(16),
-            color: ColourGenerator().getPastelColour(),
+            color: ColourGenerator().getPastelColourForKey(companyName),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

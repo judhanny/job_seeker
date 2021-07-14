@@ -143,7 +143,7 @@ class NewJobApplicationFormState extends State<NewJobApplicationForm> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      widget.jobApplication.applicationStatus = ApplicationStatus.DELETE;
+                      widget.jobApplication.applicationStatus = ApplicationStatus.ERROR;
                       Navigator.of(context).pop(true);
                     },
                     style: ButtonStyle(
