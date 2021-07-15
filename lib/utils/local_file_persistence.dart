@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'package:job_seeker/models/job_application.dart';
 import 'package:path_provider/path_provider.dart';
 
 
@@ -39,6 +40,32 @@ class LocalFilePersistence {
 
     final String jsonString = JsonEncoder().convert(object);
     await file.writeAsString(jsonString);
+  }
+
+  void saveApplicationList(List<JobApplication> applications, String finalFileName) async {
+    final String filename = await getFilename(finalFileName);
+    final File file = await _localFile(filename);
+
+    if (!await file.parent.exists()) await file.parent.create(recursive: true);
+
+    final String jsonString = jsonEncode(applications);
+    await file.writeAsString(jsonString);
+  }
+
+
+  Future<List<JobApplication>> readApplicationList(String filenamePostfix) async {
+    final String filename = await getFilename(filenamePostfix);
+    final file = await _localFile(filename);
+    List<JobApplication> list = [];
+
+    if (await file.exists()) {
+      final objectString = await file.readAsString();
+
+      list=(json.decode(objectString) as List).map((i) =>
+          JobApplication.fromJson(i)).toList();
+    }
+
+    return list;
   }
 
   void saveString(String value, String filenamePostfix) async {

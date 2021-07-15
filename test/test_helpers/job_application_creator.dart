@@ -8,7 +8,7 @@ class JobApplicationCreator {
   static String applicationTitle = "Job";
   static String applicationCompanyName = "Company";
   static String applicationTeamName = "Team";
-  static DateTime applicationApplicationDate = DateTime.now();
+  static DateTime applicationApplicationDate = new DateTime(2021, 7, 15);
   static DateTime applicationDeadline = new DateTime(
       applicationApplicationDate.year, applicationApplicationDate.month + 1, applicationApplicationDate.day);
   static String applicationJobDescription = "Job description blah blah";
