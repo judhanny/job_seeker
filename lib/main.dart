@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:job_seeker/widgets/company_applications_page.dart';
+import 'package:job_seeker/ui/company_applications_page.dart';
 
 import 'models/applications_by_company.dart';
 

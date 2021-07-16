@@ -19,24 +19,27 @@ void main() {
     expect(true, persistence == persistence2);
   });
 
-  test('testing writing & reading job application to file', () async{
+  test('testing writing & reading a single job application to file', () async{
     JobApplication application = JobApplicationCreator.getApplication();
+    List<JobApplication> applicationList = [application];
     String qualifier = "unitTestWritingJobApp";
-    Map<String, dynamic> jsonMap = application.toJson();
-    persistence.saveObject(jsonMap, qualifier);
+    persistence.saveApplicationList(applicationList, qualifier);
 
-    Map<String, dynamic> fileJsonMap = await persistence.getObject(qualifier);
-    JobApplication appFromFile = JobApplication.fromJson(fileJsonMap);
+    List<JobApplication> fromFile = await persistence.readApplicationList(qualifier);
 
-    expect(application.jobTitle, appFromFile.jobTitle);
-    expect(application.companyName, appFromFile.companyName);
-    expect(application.teamName, appFromFile.teamName);
-    expect(application.applicationDate, appFromFile.applicationDate);
-    expect(application.applicationDeadline, appFromFile.applicationDeadline);
-    expect(application.jobDescription, appFromFile.jobDescription);
-    expect(application.applicationStatus, appFromFile.applicationStatus);
-    expect(application.applicationContacts, appFromFile.applicationContacts);
-    expect(application.location, appFromFile.location);
+    expect(fromFile.length, applicationList.length);
+
+    fromFile.forEach((applicationFromFile) {
+      expect(applicationFromFile.jobTitle, JobApplicationCreator.applicationTitle);
+      expect(applicationFromFile.companyName, JobApplicationCreator.applicationCompanyName);
+      expect(applicationFromFile.teamName, JobApplicationCreator.applicationTeamName);
+      expect(applicationFromFile.applicationDate, JobApplicationCreator.applicationApplicationDate);
+      expect(applicationFromFile.applicationDeadline, JobApplicationCreator.applicationDeadline);
+      expect(applicationFromFile.jobDescription, JobApplicationCreator.applicationJobDescription);
+      expect(applicationFromFile.applicationStatus, ApplicationStatus.IN_PROGRESS);
+      expect(applicationFromFile.applicationContacts, JobApplicationCreator.applicationContacts);
+      expect(applicationFromFile.location, JobApplicationCreator.location);
+    });
   });
 
   test('testing writing & reading multiple job applications to file', () async{

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:job_seeker/widgets/custom_colours.dart';
+import 'package:job_seeker/ui/custom_colours.dart';
 
 class ColourGenerator{
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
-import 'package:job_seeker/widgets/job_application_page.dart';
+import 'package:job_seeker/ui/job_application_page.dart';
 
 import 'colour_generator.dart';
 
