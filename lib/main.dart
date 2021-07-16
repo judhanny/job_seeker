@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:job_seeker/ui/company_applications_page.dart';
+import 'package:job_seeker/ui/home_page.dart';
 
 import 'models/applications_by_company.dart';
 
@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
     ApplicationsByCompany companies = new ApplicationsByCompany({});
 
     return MaterialApp(
-        title: 'Job Application Organiser',
-        home: CompanyApplications(companies: companies),
+        title: 'Job Seeker - Application Organiser',
+        home: HomePage(companies: companies),
     );
   }
 }

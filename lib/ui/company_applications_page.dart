@@ -4,7 +4,6 @@ import 'package:job_seeker/models/application_status.dart';
 import 'package:job_seeker/models/applications_by_company.dart';
 import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
-import 'package:job_seeker/utils/web_sample_job_application_loader.dart';
 
 import 'colour_generator.dart';
 import 'job_applications_per_company_page.dart';
@@ -12,32 +11,23 @@ import 'new_job_application_form.dart';
 
 class CompanyApplications extends StatefulWidget {
   final ApplicationsByCompany companies;
+  final Function() notifyParent;
 
-  const CompanyApplications({Key? key, required this.companies}) : super(key: key);
+  const CompanyApplications({Key? key, required this.companies, required this.notifyParent}) : super(key: key);
 
   @override
   _CompanyApplicationsState createState() => _CompanyApplicationsState();
 }
 
 class _CompanyApplicationsState extends State<CompanyApplications> {
-  WebSampleJobApplicationLoader _webSampleJobApplicationLoader = new WebSampleJobApplicationLoader();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Companies'),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () { Scaffold.of(context).openDrawer(); },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
       ),
-      body: _buildCompanyApplicationGridFromInternetSource(),//_buildCompanyApplicationGrid(),
+      body: _buildCompanyApplicationGrid(),//_buildCompanyApplicationGridFromInternetSource(),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add New Job Application', // used by assistive technologies
         child: Icon(Icons.add),
@@ -47,6 +37,7 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
               if( jobApplication.isValid()){
                   setState(() {
                   widget.companies.addJobApplication(jobApplication);
+                  widget.notifyParent();
                 });
               }
               else{
@@ -69,24 +60,6 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
         crossAxisCount: 2,
         shrinkWrap: true,
         children: widget.companies.companiesMap.values.map((company) => _individualCompany(company)).toList()
-    );
-  }
-
-  FutureBuilder<List<JobApplication>> _buildCompanyApplicationGridFromInternetSource(){
-
-    return FutureBuilder<List<JobApplication>>(
-      future: _webSampleJobApplicationLoader.getSampleApplications(),
-        builder: (context, snapshot){
-          if (snapshot.hasError) print(snapshot.error);
-
-          if(snapshot.hasData){
-            widget.companies.addJobApplications(snapshot.data!);
-            return _buildCompanyApplicationGrid();
-          }
-          else{
-            return Center(child: CircularProgressIndicator());
-          }
-        }
     );
   }
 
