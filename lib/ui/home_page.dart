@@ -8,6 +8,8 @@ import 'package:job_seeker/ui/company_applications_page.dart';
 import 'package:job_seeker/ui/custom_colours.dart';
 import 'package:job_seeker/utils/web_sample_job_application_loader.dart';
 
+import 'companies_pie_chart_widget.dart';
+
 class HomePage extends StatefulWidget{
   final ApplicationsByCompany companies;
 
@@ -77,7 +79,7 @@ class HomePageState extends State<HomePage> {
   Widget _companiesTile(Color backgroundColor, IconData iconData ){
     int numCompanies = widget.companies.companiesMap.length;
     return Card(
-      color: backgroundColor,
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -93,11 +95,13 @@ class HomePageState extends State<HomePage> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(
-                  iconData,
-                  color: Colors.black,
-                ),
-                  Text("$numCompanies Companies", style: TextStyle(color: Colors.black)),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("$numCompanies Companies ", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold )),],
+                  ),
+                  CompaniesPieChart(widget.companies),
                 ],
             ),
           ),
