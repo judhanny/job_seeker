@@ -58,10 +58,10 @@ class HomePageState extends State<HomePage> {
 
   List<StaggeredTile> _layout(){
     List<StaggeredTile> staggeredTiles = <StaggeredTile>[
+      StaggeredTile.count(5, 3),
       StaggeredTile.count(2, 2),
       StaggeredTile.count(2, 1),
-      StaggeredTile.count(1, 1),
-      StaggeredTile.count(1, 1),
+      StaggeredTile.count(2, 1),
     ];
     return staggeredTiles;
   }
