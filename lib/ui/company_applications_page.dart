@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:job_seeker/models/application_status.dart';
 import 'package:job_seeker/models/applications_by_company.dart';
 import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
@@ -8,6 +7,7 @@ import 'package:job_seeker/models/job_application.dart';
 import 'colour_generator.dart';
 import 'job_applications_per_company_page.dart';
 import 'new_job_application_form.dart';
+import 'new_job_application_page.dart';
 
 class CompanyApplications extends StatefulWidget {
   final ApplicationsByCompany companies;
@@ -27,29 +27,15 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
       appBar: AppBar(
         title: const Text('Companies'),
       ),
-      body: _buildCompanyApplicationGrid(),//_buildCompanyApplicationGridFromInternetSource(),
+      body: _buildCompanyApplicationGrid(),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add New Job Application', // used by assistive technologies
         child: Icon(Icons.add),
         onPressed: (){
-            JobApplication jobApplication = JobApplication.blankApplication();
-            _showNewApplicationFormDialog(jobApplication).then((value) {
-              if( jobApplication.isValid()){
-                  setState(() {
-                  widget.companies.addJobApplication(jobApplication);
-                  widget.notifyParent();
-                });
-              }
-              else{
-                if( jobApplication.applicationStatus == ApplicationStatus.ERROR) {
-                  String company = jobApplication.companyName;
-                  String title = jobApplication.jobTitle;
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(
-                      'Error adding new job application for  $company - $title')));
-                }
-              }
-            });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewJobApplicationPage(widget.companies, refresh)),
+          );
           },
       ),
     );
@@ -118,6 +104,13 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
             textAlign: TextAlign.center)
       ],
     );
+  }
+
+  void refresh() {
+    setState(() {
+      //print("*** REFRESH from child called for COMPANY APPLICATIONS page");
+      widget.notifyParent();
+    });
   }
 
 }
