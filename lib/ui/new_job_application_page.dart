@@ -33,19 +33,19 @@ class NewJobApplicationPageState extends State<NewJobApplicationPage> {
     List<Step> steps = [
     Step(
       title: Text('Basic Details'),
-      content: JobApplicationBasicDetailsForm(jobApplication),
+      content: JobApplicationBasicDetailsForm(jobApplication, true),
       state: currentStep == 0 ? StepState.editing : StepState.indexed,
       isActive: true,
     ),
     Step(
       title: Text('Dates'),
-      content: JobApplicationDatesForm(jobApplication),
+      content: JobApplicationDatesForm(jobApplication, true),
       state: currentStep == 1 ? StepState.editing : StepState.indexed,
       isActive: true,
     ),
       Step(
         title: Text('Job Description'),
-        content: JobApplicationJobDescriptionForm(jobApplication),
+        content: JobApplicationJobDescriptionForm(jobApplication, true),
         state:  StepState.complete,
         isActive: true,
       ),

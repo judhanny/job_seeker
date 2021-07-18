@@ -4,7 +4,8 @@ import 'package:job_seeker/models/job_application.dart';
 class JobApplicationBasicDetailsForm extends StatefulWidget {
 
   final JobApplication jobApplication;
-  JobApplicationBasicDetailsForm(this.jobApplication);
+  bool editable;
+  JobApplicationBasicDetailsForm(this.jobApplication, this.editable);
 
   @override
   State<StatefulWidget> createState() {
@@ -32,6 +33,7 @@ class JobApplicationBasicDetailsFormState extends State<JobApplicationBasicDetai
           child: Column(
             children: <Widget>[
               TextFormField(
+                enabled: widget.editable,
                 maxLines: 1,
                 controller: _companyNameController,
                 decoration: InputDecoration(
@@ -54,6 +56,7 @@ class JobApplicationBasicDetailsFormState extends State<JobApplicationBasicDetai
               ),
               SizedBox(height: 20),
               TextFormField(
+                enabled: widget.editable,
                   maxLines: 1,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(
@@ -75,6 +78,7 @@ class JobApplicationBasicDetailsFormState extends State<JobApplicationBasicDetai
                   controller: _jobTitleController),
               SizedBox(height: 20),
               TextFormField(
+                  enabled: widget.editable,
                   maxLines: 1,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(
@@ -90,6 +94,7 @@ class JobApplicationBasicDetailsFormState extends State<JobApplicationBasicDetai
                   controller: _teamNameController),
               SizedBox(height: 20),
               TextFormField(
+                  enabled: widget.editable,
                   maxLines: 1,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(

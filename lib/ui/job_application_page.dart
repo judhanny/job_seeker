@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:job_seeker/models/job_application.dart';
 import 'package:timelines/timelines.dart';
 
+import 'forms/job_application_basic_details_form.dart';
+import 'forms/job_application_dates_form.dart';
+import 'forms/job_application_job_description_form.dart';
 import 'utils/colour_generator.dart';
 
 class JobApplicationPage extends StatefulWidget {
@@ -25,7 +28,7 @@ class JobApplicationPageState extends State<JobApplicationPage>{
     _baseColor = _colourGenerator.getPastelColourForKey(title);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text("Job Application Details"),
       ),
       body: _buildJobApplicationDisplay(),
     );
@@ -33,45 +36,43 @@ class JobApplicationPageState extends State<JobApplicationPage>{
 
 
   Widget _buildJobApplicationDisplay(){
-    return Column(
-      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return ListView(
+      padding: const EdgeInsets.all(8),
       children: [
+        _sectionHeader("Basic Details"),
+        SizedBox(height: 10),
         _basicDetails(),
+        SizedBox(height: 20),
+        _sectionHeader("Dates"),
+        SizedBox(height: 10),
+        _jobDateFields(),
+        SizedBox(height: 20),
+        _sectionHeader("Job Description"),
+        SizedBox(height: 10),
         _jobDescriptionDetails(),
-        _applicationTimeline(),
+        //_applicationTimeline(),
       ],
     );
   }
 
+  Widget _sectionHeader(String title){
+    return
+        ListTile(
+          title: Text(title , style: TextStyle(fontWeight: FontWeight.bold)),
+        );
+  }
+
   Widget _basicDetails(){
-    return ListTile(
-      tileColor: _colourGenerator.darken(_baseColor, 40),
-      leading: Icon(Icons.info_outline),
-      title: Text(widget.jobApplication.companyName +" - " +widget.jobApplication.jobTitle ),
-      subtitle: Text("Team: "+widget.jobApplication.teamName + " Location: " + widget.jobApplication.location),
-    );
+    return JobApplicationBasicDetailsForm(widget.jobApplication, false);
+  }
+
+  Widget _jobDateFields(){
+    return JobApplicationDatesForm(widget.jobApplication, false);
   }
 
   Widget _jobDescriptionDetails(){
-    Color widgetColor = _colourGenerator.darken(_baseColor);
-    return
-      Container(
-        margin: const EdgeInsets.all(15.0),
-        padding: const EdgeInsets.all(3.0),
-        decoration: BoxDecoration(
-            border: Border.all(color: widgetColor)
-        ),
-        child: Column(
-          children: [
-            ListTile(
-              tileColor: widgetColor,
-              title: Text("Job Description"),
-              subtitle: Text("Some work to do on scrolling"),
-            ),
-            Text( widget.jobApplication.jobDescription, maxLines: 7,),
-          ],
-        ),
-      );
+
+    return JobApplicationJobDescriptionForm(widget.jobApplication, false);
   }
 
   Widget _applicationTimeline(){

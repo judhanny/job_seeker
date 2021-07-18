@@ -6,7 +6,9 @@ import 'package:job_seeker/models/job_application.dart';
 class JobApplicationJobDescriptionForm extends StatefulWidget {
 
   final JobApplication jobApplication;
-  JobApplicationJobDescriptionForm(this.jobApplication);
+  bool editable;
+
+  JobApplicationJobDescriptionForm(this.jobApplication, this.editable);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,6 +32,7 @@ class JobApplicationJobDescriptionFormState extends State<JobApplicationJobDescr
             children: <Widget>[
            SizedBox(height: 20),
               TextFormField(
+                enabled: widget.editable,
                 minLines: 5,
                 maxLines: 10,
                 keyboardType: TextInputType.multiline,
