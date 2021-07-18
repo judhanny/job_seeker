@@ -5,7 +5,7 @@ import 'package:job_seeker/models/company.dart';
 import 'package:job_seeker/models/job_application.dart';
 import 'package:job_seeker/ui/job_application_page.dart';
 
-import 'colour_generator.dart';
+import 'utils/colour_generator.dart';
 
 class JobApplicationsPerCompany extends StatefulWidget{
   final Company company;

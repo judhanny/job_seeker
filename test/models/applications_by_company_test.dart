@@ -49,5 +49,22 @@ void main(){
     }
   });
 
+  test('test count of total number of applications', () {
+    ApplicationsByCompany companies = new ApplicationsByCompany({});
+    final int numJobs = 6;
+    final int numCompanies = 5;
+    List<JobApplication> applications = [];
+    for (int x = 0; x < numJobs; x++) {
+      for (int y = 0; y < numCompanies; y++) {
+        JobApplication application = JobApplicationCreator
+            .getApplicationWithCustomisation(x + 1, y + 1);
+        applications.add(application);
+      }
+    }
+
+    expect(companies.getTotalNumberOfApplications(), 0);
+    companies.addJobApplications(applications);
+    expect(companies.getTotalNumberOfApplications(), numJobs * numCompanies);
+  });
 }
 

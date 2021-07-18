@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:job_seeker/models/applications_by_company.dart';
 import 'package:job_seeker/models/company.dart';
-import 'package:job_seeker/models/job_application.dart';
 
-import 'colour_generator.dart';
+import 'utils/colour_generator.dart';
 import 'job_applications_per_company_page.dart';
-import 'new_job_application_form.dart';
 import 'new_job_application_page.dart';
 
 class CompanyApplications extends StatefulWidget {
@@ -47,15 +44,6 @@ class _CompanyApplicationsState extends State<CompanyApplications> {
         shrinkWrap: true,
         children: widget.companies.companiesMap.values.map((company) => _individualCompany(company)).toList()
     );
-  }
-
-  Future _showNewApplicationFormDialog(JobApplication application){
-      return showDialog(context: context,
-          builder: (BuildContext context){
-        return AlertDialog(
-            title: Text("New Job Application", textAlign: TextAlign.center),
-            content: new NewJobApplicationForm(application));
-      });
   }
 
   Widget _individualCompany(Company company){

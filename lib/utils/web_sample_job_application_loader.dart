@@ -10,6 +10,7 @@ class WebSampleJobApplicationLoader{
   final String SAMPLES_URL = "https://api.jsonbin.io/b/60f05c510cd33f7437c910a0";
 
   Future<http.Response> _fetchSampleJobApplications() {
+    print(">>>> Loading job applications REST call");
     return http.get(Uri.parse(SAMPLES_URL));
   }
 

@@ -24,4 +24,12 @@ class ApplicationsByCompany {
       this.addJobApplication(application);
     });
   }
+
+  int getTotalNumberOfApplications(){
+    int total =0;
+    companiesMap.forEach((companyName, company) {
+      total += company.applications.length;
+    });
+    return total;
+  }
 }

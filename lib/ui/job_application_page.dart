@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:job_seeker/models/job_application.dart';
 import 'package:timelines/timelines.dart';
 
-import 'colour_generator.dart';
+import 'utils/colour_generator.dart';
 
 class JobApplicationPage extends StatefulWidget {
   final JobApplication jobApplication;

@@ -1,14 +1,14 @@
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:job_seeker/models/applications_by_company.dart';
 import 'package:job_seeker/models/job_application.dart';
 import 'package:job_seeker/ui/company_applications_page.dart';
-import 'package:job_seeker/ui/custom_colours.dart';
+import 'package:job_seeker/ui/utils/custom_colours.dart';
 import 'package:job_seeker/utils/web_sample_job_application_loader.dart';
 
-import 'companies_pie_chart_widget.dart';
+import 'charts/companies_pie_chart_widget.dart';
 
 class HomePage extends StatefulWidget{
   final ApplicationsByCompany companies;
@@ -78,6 +78,8 @@ class HomePageState extends State<HomePage> {
 
   Widget _companiesTile(Color backgroundColor, IconData iconData ){
     int numCompanies = widget.companies.companiesMap.length;
+    int numApplications = widget.companies.getTotalNumberOfApplications();
+
     return Card(
       color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -96,10 +98,22 @@ class HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("$numCompanies Companies ", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold )),],
+                      Text("Job Application Breakdown ",
+                          style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold )),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("$numCompanies Companies",
+                            style: TextStyle(color: Colors.blueAccent )),
+                          SizedBox(width : 20),
+                          Text("$numApplications Applications",
+                              style: TextStyle(color: Colors.blueAccent )),],
+                      )
+                    ],
                   ),
                   CompaniesPieChart(widget.companies),
                 ],
@@ -111,10 +125,14 @@ class HomePageState extends State<HomePage> {
   }
 
  Widget _buildDashboard(){
-   if(widget.companies.companiesMap.isEmpty){
+    bool empty = widget.companies.companiesMap.isEmpty;
+    //int numApplications = widget.companies.getTotalNumberOfApplications();
+   if(empty){
+     //print("*** HOME page. Building dashboard from internet. Empty companies map? $empty with $numApplications applications" );
      return _buildDashboardFromInternetSource();
    }
    else{
+     //print("*** HOME page. Rebuilding dashboard with existing data. Empty companies map? $empty with $numApplications applications" );
      return _dashboardFromExistingData();
    }
  }
@@ -145,7 +163,9 @@ class HomePageState extends State<HomePage> {
   }
 
   void refresh() {
-    setState(() {});
+    setState(() {
+      //print("*** REFRESH from child called for HOME page");
+    });
   }
 
 }
@@ -181,7 +201,7 @@ class _PendingTile extends StatelessWidget {
               iconData,
               color: Colors.black54,
             ),
-                Text("# "+title, style: TextStyle(color: Colors.black54)),
+                Text(title, style: TextStyle(color: Colors.black54)),
                   Text("Coming soon", style: TextStyle(color: Colors.grey, fontSize: 12)),
                 ]
             ),

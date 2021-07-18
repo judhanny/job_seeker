@@ -4,9 +4,9 @@ import 'package:job_seeker/models/application_status.dart';
 import 'package:job_seeker/models/applications_by_company.dart';
 import 'package:job_seeker/models/job_application.dart';
 
-import 'job_application_basic_details_form.dart';
-import 'job_application_dates_form.dart';
-import 'job_application_job_description_form.dart';
+import 'forms/job_application_basic_details_form.dart';
+import 'forms/job_application_dates_form.dart';
+import 'forms/job_application_job_description_form.dart';
 
 class NewJobApplicationPage extends StatefulWidget {
   final ApplicationsByCompany companies;
